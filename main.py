@@ -1,5 +1,5 @@
 
-import requests, re
+import requests, re, json
 
 """
 Weather Advisor
@@ -10,6 +10,19 @@ A command-line weather advisor using Open-Meteo APIs.
 GEOCODING_BASE_URL = "https://geocoding-api.open-meteo.com/v1/search"
 FORECAST_BASE_URL = "https://api.open-meteo.com/v1/forecast"
 CACHE_FILE = "locations_cache.json"
+
+def load_cache():
+    try: 
+        with open(CACHE_FILE, "r") as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+def save_to_cache(city_input: str, location_data: dict):
+    cache = load_cache()
+    cache[city_input] = location_data
+    with open(CACHE_FILE, "w") as f:
+        json.dump(cache, f, indent=2)
 
 def GET_location_coordinates(city_input: str):
     parameters = {
@@ -34,7 +47,7 @@ def GET_location_coordinates(city_input: str):
         location = results[0]
         state = location.get("admin1", "")
         country = location.get("country", "")
-        display = f"{location['name']}, {state}, {country})".strip()
+        display = f"{location['name']}, {state}, {country}".strip()
         return {
             "name": display,
             "latitude": location["latitude"],
@@ -56,7 +69,7 @@ def GET_location_coordinates(city_input: str):
             location = results[int(pick)-1]
             state = location.get("admin1", "")
             country = location.get("country", "")
-            display = f"{location['name']}, {state}, {country})".strip()
+            display = f"{location['name']}, {state}, {country}".strip()
             return {
                 "name": display,
                 "latitude": location["latitude"],
@@ -82,13 +95,21 @@ def main():
             print("Invalid input. City/Town names must only contain letters and spaces\n")
             continue 
 
-        print(f"Looking up weather for '{city_input}'...\n")
-        location = GET_location_coordinates(city_input)
+        cache_city = city_input.lower()
+        cache = load_cache()
 
-        if not location: 
-            continue
+        if cache_city in cache:
+            print(f"Found '{city_input}' in cache.")
+            location = cache[cache_city]
+        else:
+            print(f"Looking up '{city_input}' via Geocoding API")
+            location = GET_location_coordinates(city_input)
+            if not location:
+                continue
+            save_to_cache(cache_city, location)
 
-        print("Get Request Complete")
+        print(f"\nLooking up weather for '{city_input}'...\n")
+
 
 
 if __name__ == "__main__":

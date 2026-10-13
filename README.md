@@ -19,9 +19,14 @@ Weather Advisor using Open Meteo APIs
     - 4: Get Coordiantes for the city/town name
   - Challenges: I had an issue where querying a city/town name returned multiple locations across different states, which wasn't handled in the original Lab 3 report.
   - Solution: Updated the query to request up to 5 results and added a selection prompt so the user can pick their exact location.
-- [ ] **Task 3: Persistent JSON Cache**
-  - Check whether the locations_cache.json exists, if not create
-  - If found, load in cache to check against user input for city/town
-  - If not found, Call get_location_coordinates() and then save results to cache 
+- [x] **Task 3: Persistent JSON Cache**
+  - Steps
+    - Check whether the locations_cache.json exists, if not create
+    - If found, load in cache to check against user input for city/town
+    - If not found, Call get_location_coordinates() and then save results to cache 
+  - Challenges: I had an issue where loading empty locations_cache.json caused an error
+  - Solutions: I added an exception handler that return empty dictonary
 - [ ] **Task 4: Handling Weather API**
+  - Send a Get Request to Open Meteo weather API endpoint with parameters of temperature, relative humidity, apparent temperature, precipitation, wind speed, and weather code. 
+  - Parse the API response
 - [ ] **Task 5: Condition based advice**
