@@ -8,6 +8,9 @@ Weather Advisor using Open Meteo APIs
 - Fetch real time weather metrices such as temp, apparent temp, humidity, wind speed, precipitation, WMO condition code via Open Meteo Weather API
 - Condition based advice for outdoor activities
 
+## Python Modules needed
+- pip install requests
+
 ## Issues
 - [x] **Task 1: Project setup**
   - Set up local branch to start working on the lab
@@ -26,7 +29,8 @@ Weather Advisor using Open Meteo APIs
     - If not found, Call get_location_coordinates() and then save results to cache 
   - Challenges: I had an issue where loading empty locations_cache.json caused an error
   - Solutions: I added an exception handler that return empty dictonary
-- [ ] **Task 4: Handling Weather API**
+- [x] **Task 4: Handling Weather API**
   - Send a Get Request to Open Meteo weather API endpoint with parameters of temperature, relative humidity, apparent temperature, precipitation, wind speed, and weather code. 
   - Parse the API response
-- [ ] **Task 5: Condition based advice**
+- [x] **Task 5: Condition based advice**
+  - Give Conditional Advice based on weather data 
