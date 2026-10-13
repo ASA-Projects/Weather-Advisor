@@ -9,8 +9,9 @@ Weather Advisor using Open Meteo APIs
 - Condition based advice for outdoor activities
 
 ## Issues
-[] Task 1: Project setup
-[] Task 2: Handling Geocoding API
-[] Task 3: Persistent JSON Cache
-[] Task 4: Handling Weather API
-[] Task 5: Condition based advice
+- [ ] **Task 1: Project setup**
+  - Set up local branch to start working on the lab
+- [ ] **Task 2: Handling Geocoding API**
+- [ ] **Task 3: Persistent JSON Cache**
+- [ ] **Task 4: Handling Weather API**
+- [ ] **Task 5: Condition based advice**
